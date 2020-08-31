@@ -1,0 +1,49 @@
+version: '3'
+services:
+
+  db:
+    image: mysql:5.7
+    container_name: laravelblog-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+  php:
+    image: webdevops/php:7.4
+    container_name: laravelblog-php
+    command: |
+      bash -c "ls -l && ls -l ./app && apt-get update && apt-get install -y procps && supervisord"
+    volumes:
+      - "./:/app"
+    working_dir: '/app'
+
+  nginx:
+    depends_on:
+      - php
+    image: webdevops/nginx
+    container_name: laravelblog-nginx
+    environment:
+      WEB_DOCUMENT_ROOT: /app/public
+      WEB_DOCUMENT_INDEX: index.php
+      WEB_PHP_SOCKET: php:9000
+    volumes:
+      - "./:/app"
+    ports:
+      - "80:80"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: laravelblog_pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - "8080:80"
