@@ -26,6 +26,7 @@ class PostController extends Controller
 
     public function __construct(PostServices $PostServices)
     {
+        $this->middleware('auth');
         return $this->PostServices = $PostServices;
     }
 

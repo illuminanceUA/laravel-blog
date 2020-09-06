@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    <title>Blog Home - Start Bootstrap Template</title>
+
 
 <!-- Page Content -->
 <div class="container">
@@ -24,8 +24,8 @@
                     <p class="card-text">{{$post['text']}}</p>
                     <a href="posts/{{$post['id']}}" class="btn btn-primary">Read More &rarr;</a>
                 </div>
+
                 <div class="card-footer text-muted">
-                    <img class="card-img-top" src="/public/hr.png" alt="image">
                     Posted by User
                     <a href="#">{{$post['user_id']}}</a>
                     <span style='padding-left:350px;'> </span><span class="glyphicon glyphicon-time"></span> Posted on {{ $post['published_at']}}
@@ -37,6 +37,7 @@
     <div class="pagination justify-content-center mb-4">
         {{$posts->links()}}
     </div>
+
         <!-- Create new post -->
 
             <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

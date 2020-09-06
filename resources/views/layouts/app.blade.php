@@ -38,7 +38,7 @@
                 </a>
                 @auth
                     @if (Route::is('posts'))
-                        <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#basicModal">New post</button>
+                        <a href="/posts/add" class="btn btn-outline-danger" role="button" aria-disabled="true">Create Post</a>
                     @endif
                 @endauth
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -64,7 +64,7 @@
                                 </li>
                             @endif
                         @else
-                            <a class="nav-link" href="/posts">Posts</a>
+                            <a class="nav-link" href="/">Posts</a>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
