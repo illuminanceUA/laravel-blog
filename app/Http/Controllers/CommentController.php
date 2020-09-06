@@ -3,18 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use App\Services\CommentServices;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Comment\StoreComment;
 
 class CommentController extends Controller
 {
+
+    private $CommentServices;
+
+    public function __construct(CommentServices $CommentServices)
+    {
+        return $this->CommentServices = $CommentServices;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index():View
     {
-        //
+        return view('posts/{id}', ['comments' => $this->CommentServices->getComments()]);
     }
 
     /**
@@ -33,9 +46,14 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComment $request)
     {
-        //
+        $this->CommentServices->createComment(
+            $request->validated(),
+            $post = Post::find($request->get('post_id'))
+        );
+
+        return back();
     }
 
     /**

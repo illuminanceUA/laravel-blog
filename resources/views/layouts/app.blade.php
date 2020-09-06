@@ -24,6 +24,7 @@
 
     <!-- Custom styles for this template -->
     <link href="public/css/blog-home.css" rel="stylesheet">
+    <link href="public/css/blog-post.css" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
